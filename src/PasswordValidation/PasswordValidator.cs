@@ -1,19 +1,45 @@
 namespace PasswordValidation;
 
-public abstract class PasswordValidator
+public class PasswordValidator
 {
-    protected readonly string password;
+    internal int MinLength { get; set; }
+    private readonly string password;
+    internal delegate bool Validator();
+    private readonly List<Validator> validators;
 
-    protected PasswordValidator(string password)
-        => this.password = password;
+    internal PasswordValidator(string password)
+    {
+        this.password = password;
+        MinLength = 0;
+        validators = new();
+    }
 
     public bool IsValid()
     {
-        if (SomeRequirementNotMet())
-            return false;
+        foreach(Validator validator in validators)
+        {
+            if (!validator())
+                return false;
+        }
 
         return true;
     }
 
-    protected abstract bool SomeRequirementNotMet();
+    internal void AddValidator(Validator validator)
+        => validators.Add(validator);
+
+    internal bool IsLengthCorrect()
+        => password.Length >= MinLength;
+
+    internal bool HasAnyCapitalLetter()
+        => password.Any(char.IsUpper);
+
+    internal bool HasAnyLowercase()
+        => password.Any(char.IsLower);
+
+    internal bool HasAnyNumber()
+        => password.Any(char.IsDigit);
+
+    internal bool HasAnyUnderscore()
+        => password.Contains("_");
 }

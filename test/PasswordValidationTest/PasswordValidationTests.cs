@@ -2,7 +2,7 @@ using PasswordValidation;
 
 namespace PasswordValidationTest;
 
-public class PasswordValidationTests
+public class StandardPasswordValidationTests
 {
     [Fact]
     public void ValidPassword()
@@ -30,8 +30,7 @@ public class PasswordValidationTests
 
     private void AssertPassword(string password, bool isValid = false)
     {
-        PasswordValidator validator = new StandardPasswordValidator(password);
-
+        PasswordValidator validator = PasswordValidatorFactory.MakeStandardValidator(password);
         Assert.Equal(isValid, validator.IsValid());
     }
 }
