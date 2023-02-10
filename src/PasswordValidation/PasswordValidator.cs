@@ -7,5 +7,13 @@ public abstract class PasswordValidator
     protected PasswordValidator(string password)
         => this.password = password;
 
-    public abstract bool IsValid();
+    public bool IsValid()
+    {
+        if (SomeRequirementNotMet())
+            return false;
+
+        return true;
+    }
+
+    protected abstract bool SomeRequirementNotMet();
 }

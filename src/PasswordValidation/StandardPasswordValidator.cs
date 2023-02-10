@@ -4,15 +4,7 @@ public class StandardPasswordValidator : PasswordValidator
 {
     public StandardPasswordValidator(string password) : base(password) { }
 
-    public override bool IsValid()
-    {
-        if (SomeRequirementNotMet())
-            return false;
-
-        return true;
-    }
-
-    private bool SomeRequirementNotMet()
+    protected override bool SomeRequirementNotMet()
     {
         return NoMinLength() ||
                     NoCapitalLetter() ||
