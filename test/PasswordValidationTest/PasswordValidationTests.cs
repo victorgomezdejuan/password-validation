@@ -30,7 +30,7 @@ public class PasswordValidationTests
 
     private void AssertPassword(string password, bool isValid = false)
     {
-        PasswordValidator validator = new(password);
+        PasswordValidator validator = new StandardPasswordValidator(password);
 
         Assert.Equal(isValid, validator.IsValid());
     }
