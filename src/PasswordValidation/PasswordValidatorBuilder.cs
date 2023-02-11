@@ -1,3 +1,5 @@
+using PasswordValidation.PasswordChecks;
+
 namespace PasswordValidation;
 
 internal class PasswordValidatorBuilder
@@ -10,31 +12,31 @@ internal class PasswordValidatorBuilder
     internal PasswordValidatorBuilder MustHaveMinLength(int length)
     {
         validator.MinLength = length;
-        validator.AddValidator(validator.IsLengthCorrect);
+        validator.AddCheck(new MinLengthCheck(length));
         return this;
     }
 
     internal PasswordValidatorBuilder MustHaveCapitalLetter()
     {
-        validator.AddValidator(validator.HasAnyCapitalLetter);
+        validator.AddCheck(new CapitalLetterCheck());
         return this;
     }
 
     internal PasswordValidatorBuilder MustHaveLowercase()
     {
-        validator.AddValidator(validator.HasAnyLowercase);
+        validator.AddCheck(new LowercaseCheck());
         return this;
     }
 
     internal PasswordValidatorBuilder MustHaveNumber()
     {
-        validator.AddValidator(validator.HasAnyNumber);
+        validator.AddCheck(new NumberCheck());
         return this;
     }
 
     internal PasswordValidatorBuilder MustHaveUnderscore()
     {
-        validator.AddValidator(validator.HasAnyUnderscore);
+        validator.AddCheck(new UnderscoreCheck());
         return this;
     }
 

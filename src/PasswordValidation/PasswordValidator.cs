@@ -1,45 +1,38 @@
+using PasswordValidation.PasswordChecks;
+
 namespace PasswordValidation;
 
 public class PasswordValidator
 {
-    internal int MinLength { get; set; }
+    public List<string> Errors { get; init; }
+    internal int MinLength { private get; set; }
     private readonly string password;
-    internal delegate bool Validator();
-    private readonly List<Validator> validators;
+    private readonly List<PasswordCheck> checks;
 
     internal PasswordValidator(string password)
     {
         this.password = password;
         MinLength = 0;
-        validators = new();
+        checks = new();
+        Errors = new();
     }
 
     public bool IsValid()
     {
-        foreach(Validator validator in validators)
+        bool result = true;
+
+        foreach(PasswordCheck check in checks)
         {
-            if (!validator())
-                return false;
+            if (!check.IsValid(password))
+            {
+                result = false;
+                Errors.Add(check.Error);
+            }
         }
 
-        return true;
+        return result;
     }
 
-    internal void AddValidator(Validator validator)
-        => validators.Add(validator);
-
-    internal bool IsLengthCorrect()
-        => password.Length >= MinLength;
-
-    internal bool HasAnyCapitalLetter()
-        => password.Any(char.IsUpper);
-
-    internal bool HasAnyLowercase()
-        => password.Any(char.IsLower);
-
-    internal bool HasAnyNumber()
-        => password.Any(char.IsDigit);
-
-    internal bool HasAnyUnderscore()
-        => password.Contains("_");
+    internal void AddCheck(PasswordCheck check)
+        => checks.Add(check);
 }
