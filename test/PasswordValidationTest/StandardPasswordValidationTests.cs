@@ -10,7 +10,7 @@ public class StandardPasswordValidationTests
 
     [Fact]
     public void LenghtMoreThan8()
-        => AssertPassword("12345678");
+        => AssertPassword("Ab_45678");
 
     [Fact]
     public void CapitalLetter()

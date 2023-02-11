@@ -10,4 +10,20 @@ public static class PasswordValidatorFactory
             .MustHaveNumber()
             .MustHaveUnderscore()
             .Build();
+
+    public static PasswordValidator MakeShortValidator(string password)
+        => new PasswordValidatorBuilder(password)
+            .MustHaveMinLength(7)
+            .MustHaveCapitalLetter()
+            .MustHaveLowercase()
+            .MustHaveNumber()
+            .Build();
+
+    public static PasswordValidator MakeLongValidator(string password)
+        => new PasswordValidatorBuilder(password)
+            .MustHaveMinLength(17)
+            .MustHaveCapitalLetter()
+            .MustHaveLowercase()
+            .MustHaveUnderscore()
+            .Build();
 }
