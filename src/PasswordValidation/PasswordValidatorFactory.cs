@@ -1,3 +1,5 @@
+using PasswordValidation.Validators;
+
 namespace PasswordValidation;
 
 public static class PasswordValidatorFactory

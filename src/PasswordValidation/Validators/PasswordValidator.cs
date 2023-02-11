@@ -1,23 +1,24 @@
 using PasswordValidation.PasswordChecks;
 
-namespace PasswordValidation;
+namespace PasswordValidation.Validators;
 
-public class StrictPasswordValidator : PasswordValidator
+public class PasswordValidator
 {
-    public List<string> Errors { get; init; }
+    public virtual List<string> Errors { get { return _errors; } }
     public int MinLength { get; set; }
     private readonly string password;
     private readonly List<PasswordCheck> checks;
+    private readonly List<string> _errors;
 
-    internal StrictPasswordValidator(string password)
+    internal PasswordValidator(string password)
     {
         this.password = password;
         MinLength = 0;
         checks = new();
-        Errors = new();
+        _errors = new();
     }
 
-    public bool IsValid()
+    public virtual bool IsValid()
     {
         bool result = true;
 
@@ -26,13 +27,13 @@ public class StrictPasswordValidator : PasswordValidator
             if (!check.IsValid(password))
             {
                 result = false;
-                Errors.Add(check.Error);
+                _errors.Add(check.Error);
             }
         }
 
         return result;
     }
 
-    public void AddCheck(PasswordCheck check)
+    public virtual void AddCheck(PasswordCheck check)
         => checks.Add(check);
 }

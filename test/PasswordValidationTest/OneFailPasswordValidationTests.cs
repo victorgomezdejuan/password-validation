@@ -1,4 +1,5 @@
 using PasswordValidation;
+using PasswordValidation.Validators;
 
 namespace PasswordValidationTest;
 
@@ -28,7 +29,7 @@ public class OneFailPasswordValidationTests
     public void TwoFails()
     {
         PasswordValidator validator = PasswordValidatorFactory.MakeOneFailValidator("ab1234567");
-        
+
         Assert.Equal(false, validator.IsValid());
         Assert.Contains("The password must contain at least one capital letter", validator.Errors);
         Assert.Contains("The password must contain at least one underscore", validator.Errors);

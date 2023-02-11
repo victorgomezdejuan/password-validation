@@ -1,4 +1,5 @@
 using PasswordValidation.PasswordChecks;
+using PasswordValidation.Validators;
 
 namespace PasswordValidation;
 
@@ -8,7 +9,7 @@ internal class PasswordValidatorBuilder
 
     internal PasswordValidatorBuilder(string password, bool allowOneFail = false)
         => validator = allowOneFail ?
-            new OneFailPasswordValidator(password) : new StrictPasswordValidator(password);
+            new OneFailPasswordValidator(password) : new PasswordValidator(password);
 
     internal PasswordValidatorBuilder MustHaveMinLength(int length)
     {
