@@ -6,8 +6,9 @@ internal class PasswordValidatorBuilder
 {
     private PasswordValidator validator;
 
-    internal PasswordValidatorBuilder(string password)
-        => validator = new(password);
+    internal PasswordValidatorBuilder(string password, bool allowOneFail = false)
+        => validator = allowOneFail ?
+            new OneFailPasswordValidator(password) : new StrictPasswordValidator(password);
 
     internal PasswordValidatorBuilder MustHaveMinLength(int length)
     {

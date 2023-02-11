@@ -1,6 +1,6 @@
 namespace PasswordValidation.PasswordChecks;
 
-internal abstract class PasswordCheck
+public abstract class PasswordCheck
 {
     internal string Error { get; set; }
 

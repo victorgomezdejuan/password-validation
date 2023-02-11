@@ -2,37 +2,12 @@ using PasswordValidation.PasswordChecks;
 
 namespace PasswordValidation;
 
-public class PasswordValidator
+public interface PasswordValidator
 {
-    public List<string> Errors { get; init; }
-    internal int MinLength { private get; set; }
-    private readonly string password;
-    private readonly List<PasswordCheck> checks;
+    List<string> Errors { get; init; }
+    int MinLength { get; set; }
 
-    internal PasswordValidator(string password)
-    {
-        this.password = password;
-        MinLength = 0;
-        checks = new();
-        Errors = new();
-    }
+    bool IsValid();
 
-    public bool IsValid()
-    {
-        bool result = true;
-
-        foreach(PasswordCheck check in checks)
-        {
-            if (!check.IsValid(password))
-            {
-                result = false;
-                Errors.Add(check.Error);
-            }
-        }
-
-        return result;
-    }
-
-    internal void AddCheck(PasswordCheck check)
-        => checks.Add(check);
+    void AddCheck(PasswordCheck check);
 }

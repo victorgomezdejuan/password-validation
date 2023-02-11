@@ -26,4 +26,12 @@ public static class PasswordValidatorFactory
             .MustHaveLowercase()
             .MustHaveUnderscore()
             .Build();
+
+        public static PasswordValidator MakeOneFailValidator(string password)
+        => new PasswordValidatorBuilder(password, true)
+            .MustHaveMinLength(9)
+            .MustHaveCapitalLetter()
+            .MustHaveNumber()
+            .MustHaveUnderscore()
+            .Build();
 }
