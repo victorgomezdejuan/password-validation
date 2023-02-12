@@ -1,4 +1,4 @@
-# Password Validation (Iteration 1)
+# Password Validation
 Kata got from https://www.codurance.com/katalyst/password-validation.
 
 ## Practice objectives
@@ -17,3 +17,5 @@ A valid password should meet the following requirements:
 - Contains a lowercase
 - Contains a number
 - Contains an underscore
+
+Futher iterations add more functionality (see link above).
